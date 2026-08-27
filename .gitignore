@@ -1,0 +1,27 @@
+# Built artifacts
+build/
+app/build/
+.gradle/
+.kotlin/
+bin
+gen
+out
+
+# Local configuration files
+local.properties
+
+# Android Studio / IntelliJ files
+.idea/
+*.iml
+*.iws
+*.ipr
+/captures/
+
+# Device/Emulator files
+*.apk
+*.ap_
+*.dex
+
+# OS specific files
+.DS_Store
+Thumbs.db

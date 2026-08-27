@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+<TextView android:id="@+id/statusText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="STOPPED" android:textSize="24sp" android:textStyle="bold" android:paddingBottom="16dp"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Interval (minutes)"/><EditText android:id="@+id/intervalEdit" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:text="30"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Active from (HH:mm)"/><EditText android:id="@+id/startEdit" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="07:00" android:text="07:00"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Active until (HH:mm)"/><EditText android:id="@+id/endEdit" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="22:00" android:text="22:00"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Active Days"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+    <CheckBox android:id="@+id/cbSun" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="S"/>
+    <CheckBox android:id="@+id/cbMon" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="M" android:checked="true"/>
+    <CheckBox android:id="@+id/cbTue" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="T" android:checked="true"/>
+    <CheckBox android:id="@+id/cbWed" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="W" android:checked="true"/>
+    <CheckBox android:id="@+id/cbThu" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="T" android:checked="true"/>
+    <CheckBox android:id="@+id/cbFri" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="F" android:checked="true"/>
+    <CheckBox android:id="@+id/cbSat" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="S"/>
+</LinearLayout>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Alarm message"/><EditText android:id="@+id/messageEdit" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Time to move"/>
+<Switch android:id="@+id/vibrateSwitch" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Vibrate" android:checked="true"/>
+<Button android:id="@+id/saveStartButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="SAVE AND START"/><Button android:id="@+id/stopButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="STOP REMINDERS"/>
+</LinearLayout></ScrollView>
