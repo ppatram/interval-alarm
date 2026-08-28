@@ -4,7 +4,61 @@ import android.os.*
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-class AlarmActivity:AppCompatActivity(){override fun onCreate(b:Bundle?){super.onCreate(b);window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);setContentView(LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;gravity=Gravity.CENTER;setPadding(48, 48, 48, 48);val p=getSharedPreferences("reminder_settings",0);addView(TextView(context).apply{text="🚨  ALARM";textSize=36f;gravity=Gravity.CENTER});addView(TextView(context).apply{text=p.getString("message","Reminder");textSize=26f;gravity=Gravity.CENTER;setPadding(24, 24, 24, 24)});addView(Button(context).apply{text="STOP ALARM";textSize=22f;setOnClickListener{stop()}})})}
-private fun stop(){startService(Intent(this,AlarmService::class.java).setAction(AlarmService.STOP));finishAndRemoveTask()}
-override fun onBackPressed(){/* deliberately do nothing: user must stop the alarm */}
+import kotlinx.coroutines.*
+
+class AlarmActivity : AppCompatActivity() {
+    private var alarmId: Int = -1
+
+    override fun onCreate(b: Bundle?) {
+        super.onCreate(b)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        alarmId = intent.getIntExtra("alarmId", -1)
+        
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            setPadding(48, 48, 48, 48)
+        }
+        setContentView(layout)
+
+        val titleView = TextView(this).apply {
+            text = "🚨  ALARM"
+            textSize = 36f
+            gravity = Gravity.CENTER
+        }
+        layout.addView(titleView)
+
+        val messageView = TextView(this).apply {
+            text = "Reminder"
+            textSize = 26f
+            gravity = Gravity.CENTER
+            setPadding(24, 24, 24, 24)
+        }
+        layout.addView(messageView)
+
+        if (alarmId != -1) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val alarm = AlarmDatabase.getDatabase(this@AlarmActivity).alarmDao().getAlarmById(alarmId)
+                if (alarm != null) {
+                    withContext(Dispatchers.Main) {
+                        messageView.text = alarm.message
+                    }
+                }
+            }
+        }
+
+        val stopButton = Button(this).apply {
+            text = "STOP ALARM"
+            textSize = 22f
+            setOnClickListener { stop() }
+        }
+        layout.addView(stopButton)
+    }
+
+    private fun stop() {
+        startService(Intent(this, AlarmService::class.java).setAction(AlarmService.STOP))
+        finishAndRemoveTask()
+    }
+
+    override fun onBackPressed() {}
 }
